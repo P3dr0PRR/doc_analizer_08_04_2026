@@ -17,7 +17,7 @@ function App() {
 
   return (
     <main className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center p-8">
-      <h1 className="text-3xl font-bold mb-8">Analisador de Documentos</h1>
+      <h1 className="text-3xl font-bold mb-8">Analisador de Docs</h1>
      <ApiKeyInput apiKey={apiKey} onChange={setApiKey} />
     </main>
   );
