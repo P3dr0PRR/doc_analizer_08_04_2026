@@ -1,6 +1,6 @@
 interface ApiKeyInputProps {
-  apiKey: string
-  onChange: (value: string) => void
+  apiKey: string;
+  onChange: (value: string) => void;
 }
 
 export function ApiKeyInput({ apiKey, onChange }: ApiKeyInputProps) {
@@ -17,8 +17,9 @@ export function ApiKeyInput({ apiKey, onChange }: ApiKeyInputProps) {
         className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
       />
       <p className="text-xs text-gray-500">
-        Sua chave fica apenas no navegador, nunca é enviada para servidores externos.
+        Sua chave fica apenas aqui no navegador, nunca é enviada para servidores
+        externos.
       </p>
     </div>
-  )
+  );
 }
