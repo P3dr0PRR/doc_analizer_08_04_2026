@@ -1,20 +1,14 @@
-import { useState } from "react";
-
-import { ApiKeyInput } from "./components/ApiKeyInput";
-import { FileUpload } from "./components/FileUpload";
-
-interface DocumentResult {
-  nome: string;
-  validade: string;
-  categoria: string;
-}
+import { useState } from "react"
+import { ApiKeyInput } from "./components/ApiKeyInput"
+import { FileUpload } from "./components/FileUpload"
+import { analyzeDocument, type DocumentResult } from './services/analyzeDocument'
 
 function App() {
-  const [apiKey, setApiKey] = useState("");
-  const [file, setFile] = useState<File | null>(null);
-  const [result, setResult] = useState<DocumentResult | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [apiKey, setApiKey] = useState("")
+  const [file, setFile] = useState<File | null>(null)
+  const [result, setResult] = useState<DocumentResult | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
   return (
     <main className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center p-8">
@@ -22,7 +16,7 @@ function App() {
       <ApiKeyInput apiKey={apiKey} onChange={setApiKey} />
       <FileUpload file={file} onChange={setFile} />
     </main>
-  );
+  )
 }
 
-export default App;
+export default App
