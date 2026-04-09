@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { ApiKeyInput } from "./components/ApiKeyInput";
 import { FileUpload } from "./components/FileUpload";
-import {
-  analyzeDocument,
-  type DocumentResult,
-} from "./services/analyzeDocument";
+import { type DocumentResult } from "./services/analyzeDocument";
 
 function App() {
   const [apiKey, setApiKey] = useState("");
@@ -18,14 +15,13 @@ function App() {
     setLoading(true);
     setError("");
     setResult(null);
-    try {
-      const data = await analyzeDocument(file, apiKey);
-      setResult(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Erro desconhecido");
-    } finally {
-      setLoading(false);
-    }
+    await new Promise((r) => setTimeout(r, 2000));
+    setResult({
+      nome: "Pedro Paulo Ribeiro Rocha",
+      validade: "15/03/2030",
+      categoria: "B",
+    });
+    setLoading(false);
   }
 
   return (

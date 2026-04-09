@@ -11,7 +11,7 @@ export function ApiKeyInput({ apiKey, onChange }: ApiKeyInputProps) {
       </label>
       <input
         type="password"
-        placeholder="sk-ant-..."
+        placeholder="Cole sua chave do Gemini aqui"
         value={apiKey}
         onChange={(e) => onChange(e.target.value)}
         className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors"
