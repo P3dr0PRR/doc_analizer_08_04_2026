@@ -7,7 +7,7 @@ export function ApiKeyInput({ apiKey, onChange }: ApiKeyInputProps) {
   return (
     <div className="w-full max-w-lg flex flex-col gap-2 mb-6">
       <label className="text-sm text-gray-400 font-medium">
-        Anthropic API Key
+        Gemini API Key
       </label>
       <input
         type="password"

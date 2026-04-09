@@ -1,3 +1,5 @@
+import { GoogleGenAI } from "@google/genai";
+
 export interface DocumentResult {
   nome: string;
   validade: string;
@@ -10,44 +12,34 @@ export async function analyzeDocument(
 ): Promise<DocumentResult> {
   const base64 = await toBase64(file);
 
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${apiKey}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [
+  const ai = new GoogleGenAI({ apiKey });
+
+  const response = await ai.models.generateContent({
+    model: "gemini-1.5-flash",
+    contents: [
+      {
+        role: "user",
+        parts: [
           {
-            parts: [
-              {
-                inline_data: {
-                  mime_type: "application/pdf",
-                  data: base64,
-                },
-              },
-              {
-                text: `Analise este documento e extraia exatamente estes campos:
+            inlineData: {
+              mimeType: "application/pdf",
+              data: base64,
+            },
+          },
+          {
+            text: `Analise este documento e extraia exatamente estes campos:
 Nome:
 Data de Validade:
 Categoria:
 
 Retorne APENAS esses 3 campos nesse formato, sem texto adicional.`,
-              },
-            ],
           },
         ],
-      }),
-    },
-  );
+      },
+    ],
+  });
 
-  if (!response.ok) {
-    const err = await response.json();
-    throw new Error(err.error?.message ?? "Erro na API");
-  }
-
-  const data = await response.json();
-  const text: string = data.candidates[0].content.parts[0].text;
-
+  const text = response.text ?? "";
   return parseResult(text);
 }
 
