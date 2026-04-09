@@ -14,33 +14,39 @@ export async function analyzeDocument(
 
   const ai = new GoogleGenAI({ apiKey });
 
-  const response = await ai.models.generateContent({
-    model: "gemini-1.5-flash",
-    contents: [
-      {
-        role: "user",
-        parts: [
-          {
-            inlineData: {
-              mimeType: "application/pdf",
-              data: base64,
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-1.5-flash",
+      contents: [
+        {
+          role: "user",
+          parts: [
+            {
+              inlineData: {
+                mimeType: "application/pdf",
+                data: base64,
+              },
             },
-          },
-          {
-            text: `Analise este documento e extraia exatamente estes campos:
+            {
+              text: `Analise este documento e extraia exatamente estes campos:
 Nome:
 Data de Validade:
 Categoria:
 
 Retorne APENAS esses 3 campos nesse formato, sem texto adicional.`,
-          },
-        ],
-      },
-    ],
-  });
+            },
+          ],
+        },
+      ],
+    });
 
-  const text = response.text ?? "";
-  return parseResult(text);
+    const text = response.text ?? "";
+    return parseResult(text);
+  } catch {
+    throw new Error(
+      "Não foi possível analisar o documento. Verifique sua chave e tente novamente.",
+    );
+  }
 }
 
 function toBase64(file: File): Promise<string> {
